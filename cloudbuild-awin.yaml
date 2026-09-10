@@ -29,3 +29,5 @@ substitutions:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/business-awin-dataload-build@$PROJECT_ID.iam.gserviceaccount.com'
