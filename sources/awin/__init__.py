@@ -1,0 +1,1 @@
+"""Awin mock API service."""

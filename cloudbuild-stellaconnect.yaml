@@ -1,0 +1,31 @@
+steps:
+  - name: bash
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        case "$PROJECT_ID" in
+          *-dev|*-test) echo "Building StellaConnect mock for $PROJECT_ID" ;;
+          *) echo "Mock services may only be built in dev or test projects"; exit 1 ;;
+        esac
+    id: verify_non_production_project
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file=sources/stellaconnect/Dockerfile
+      - --tag=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/mock-stellaconnect-api:${_TAG}
+      - .
+    id: build_container
+    waitFor: [verify_non_production_project]
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/mock-stellaconnect-api:${_TAG}
+
+substitutions:
+  _TAG: v1.0.0
+  _REGION: europe-west1
+  _REPO_NAME: dta-business-cloudrun
+
+options:
+  logging: CLOUD_LOGGING_ONLY
