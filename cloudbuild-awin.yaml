@@ -26,8 +26,9 @@ substitutions:
   _TAG: v1.0.0
   _REGION: europe-west1
   _REPO_NAME: dta-business-cloudrun
+  _PROJ_ENV_TYPE: dev
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
-serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/business-awin-dataload-build@$PROJECT_ID.iam.gserviceaccount.com'
+serviceAccount: 'projects/skyuk-uk-business-vfy-${_PROJ_ENV_TYPE}/serviceAccounts/business-vfy-dataload-build@skyuk-uk-business-vfy-${_PROJ_ENV_TYPE}.iam.gserviceaccount.com'
