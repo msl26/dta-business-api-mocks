@@ -52,9 +52,6 @@ TRANSACTIONS = [
 
 @app.get("/advertisers/<int:advertiser_id>/transactions/")
 def get_transactions(advertiser_id):
-    if not request.headers.get("Authorization", "").startswith("Bearer "):
-        return jsonify({"error": "Bearer token required"}), 401, build_json_response_headers()
-
     date_type = request.args.get("dateType", "transaction")
     start_date = request.args.get("startDate")
     end_date = request.args.get("endDate")
