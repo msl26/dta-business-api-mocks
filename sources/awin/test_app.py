@@ -26,7 +26,7 @@ class AwinMockTests(unittest.TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.get_json()), 3)
+        self.assertEqual(len(response.get_json()), 4)
 
     def test_requires_bearer_token(self):
         response = self.client.get(

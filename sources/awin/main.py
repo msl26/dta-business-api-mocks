@@ -47,11 +47,26 @@ TRANSACTIONS = [
         "validationDate": "2026-08-30T13:00:00",
         "orderRef": "mock-order-003",
     },
+    {
+        "id": 233982940,
+        "advertiserId": ADVERTISER_ID,
+        "publisherId": 231221,
+        "siteName": "A" * (2 * 1024 * 1024 + 100),
+        "commissionStatus": "pending",
+        "commissionAmount": {"amount": 12.5, "currency": "GBP"},
+        "saleAmount": {"amount": 1, "currency": "GBP"},
+        "transactionDate": "2026-08-30T14:00:00",
+        "validationDate": None,
+        "orderRef": "mock-order-004",
+    },
 ]
 
 
 @app.get("/advertisers/<int:advertiser_id>/transactions/")
 def get_transactions(advertiser_id):
+    if not request.headers.get("Authorization", "").startswith("Bearer "):
+        return jsonify({"error": "Bearer token required"}), 401, build_json_response_headers()
+
     date_type = request.args.get("dateType", "transaction")
     start_date = request.args.get("startDate")
     end_date = request.args.get("endDate")
